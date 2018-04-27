@@ -22,6 +22,17 @@ from sklearn.model_selection import LeaveOneOut
 from sklearn.model_selection import KFold
 from sklearn.model_selection import RepeatedKFold
 
-file_name ="drawing_non-text"
-file_name=file_name[0:file_name.index("_non-text")]
-print file_name
+l1=[1,2,3,4,5]
+r1=[0,255,0,255,0]
+l2=[1,2,3]
+r2=[0,255,0]
+l3=[1,2,3]
+r3=[255,0,255]
+l4=[22,56,11]
+r4=[255,0,255]
+print np.sign(l1)
+
+
+
+
+

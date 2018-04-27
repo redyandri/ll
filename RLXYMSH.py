@@ -65,8 +65,62 @@ class RLXYMSH:
                 prev = val
         lengths_w = [lengths[k] for k, v in enumerate(runs) if v == 255]  # lengths of only white pixels
         lengths_b = [lengths[k] for k, v in enumerate(runs) if v == 0]  # lengths of only black pixels
-        return self.get_histogram(lengths_b), self.get_histogram(lengths_w), self.get_histogram(
-            lengths)  # rlbyh,rlwyh,rlbwyh
+        return self.get_histogram(lengths_b), self.get_histogram(lengths_w), self.get_histogram(lengths)  # rlbyh,rlwyh,rlbwyh
+
+    def getRunLengthX(self, img):
+        image=cv2.imread(img)
+        runs=[]
+        lengths=[]
+        prev=-1
+        count=0
+        val=0
+        height = image.shape[0]
+        width = image.shape[1]
+        for x in range(0,height):
+            for y in range(0, width):
+                val=image[x,y][0]
+                if(prev==-1): #beginning of image
+                    count=1
+                else:
+                    if (val==prev):
+                        count=count+1
+                    else:
+                        runs.append(prev)
+                        lengths.append(count)
+                        count=1
+                if ((x == height - 1) & (y == width - 1)):  # end of imsge
+                    runs.append(val)
+                    lengths.append(count)
+                prev=val
+        return runs, lengths
+
+    def getRunLengthY(self, img):
+        image=cv2.imread(img)
+        runs=[]
+        lengths=[]
+        prev=-1
+        count=0
+        val=0
+        height = image.shape[0]
+        width = image.shape[1]
+        for y in range(0,width):
+            for x in range(0, height):
+                val = image[x, y][0]
+                if (prev == -1):  # beginning of image
+                    count = 1
+                else:
+                    if (val == prev):
+                        count = count + 1
+                    else:
+                        runs.append(prev)
+                        lengths.append(count)
+                        count = 1
+                if ((x == height - 1) & (y == width - 1)):  # end of imsge
+                    runs.append(val)
+                    lengths.append(count)
+                prev = val
+        return runs, lengths
+
 
     def get_histogram(self, lengths):
         bins=[0,2,4,8,16,32,64,128,1024]
@@ -80,6 +134,20 @@ class RLXYMSH:
         plt.xticks(y_pos,xlabels)
         plt.xlabel(label)
         plt.show()
+
+    def combineRunLength(self,runs,lengths):
+        combiRuns=runs[0]
+        combiLength=lengths[0]
+        for i in range(1,len(runs)):
+            r=runs[i]
+            l=lengths[i]
+            if combiRuns[len(combiRuns)-1]==r[0]:
+                combiLength[len(combiLength)-1]=combiLength[len(combiLength)-1] + l[0]
+                del r[0]
+                del l[0]
+            combiRuns=combiRuns+r
+            combiLength = combiLength + l
+        return combiRuns,combiLength
 
 
 #
