@@ -3,7 +3,7 @@ from sklearn.preprocessing import StandardScaler
 import numpy as np
 import plotly.plotly as py
 from plotly.graph_objs import *
-
+from sklearn.decomposition import PCA
 
 class PCAWatcher():
     def readCSVFile(self,path):
@@ -17,7 +17,7 @@ class PCAWatcher():
         label=dataFrame.ix[:,c-1].values
         dataStandard=StandardScaler().fit_transform(data)
         #print "arr:%s\nstd:%s" %(data[0:4],dataStandard[0:4])
-        return dataStandard
+        return dataStandard,label
 
     def getCovatrianceMatrix(self,data):
         data=(pd.DataFrame)(data)
@@ -68,14 +68,47 @@ class PCAWatcher():
             title='Explained variance by different principal components')
 
         fig = Figure(data=data, layout=layout)
-        py.iplot(fig)
+        py.plot(fig)
+
+    def showPCA(self,csvPath):
+        dataFrame=self.readCSVFile(csvPath)
+        std,label=self.standardizeData(dataFrame)
+        pca=PCA(n_components=2)
+        principalComp=pca.fit_transform(std)
+        for p in principalComp:
+            print p
+        traces = []
+
+        for name in ('Iris-setosa', 'Iris-versicolor', 'Iris-virginica'):
+            trace = Scatter(
+                x=principalComp[ label==name, 0],
+                y=principalComp[label==name, 1],
+                mode='markers',
+                name=name,
+                marker=Marker(
+                    size=12,
+                    line=Line(
+                        color='rgba(217, 217, 217, 0.14)',
+                        width=0.5),
+                    opacity=0.8))
+            traces.append(trace)
+
+        data = Data(traces)
+        layout = Layout(xaxis=XAxis(title='PC1', showline=False),
+                        yaxis=YAxis(title='PC2', showline=False))
+        fig = Figure(data=data, layout=layout)
+        py.plot(fig)
+
+
 
 csvPath="../dataset/iris.data"
 pca=PCAWatcher()
-df=pca.readCSVFile(csvPath)
-std=pca.standardizeData(df)
-covMat=pca.getCovatrianceMatrix(std)
-eigVal,eigVec=pca.getEigen(covMat)
-eig_pair=pca.sortEigenVals(eigVal,eigVec)
-pca.showVarienceExplained(eig_pair)
+pca.showPCA(csvPath)
+# df=pca.readCSVFile(csvPath)
+# std=pca.standardizeData(df)
+# covMat=pca.getCovatrianceMatrix(std)
+# eigVal,eigVec=pca.getEigen(covMat)
+# eig_pair=pca.sortEigenVals(eigVal,eigVec)
+# pca.showVarienceExplained(eig_pair)
+
 
