@@ -30,12 +30,12 @@ class KNNClassifier(object):
             reader=csv.reader(myCsv)
             c=0
             for r in reader:
-                if c==0:
+                if c==0: #if header, skip it
                     c = c + 1
                     continue
-                i=[int(i) for i in p.findall(r[1])]
+                i=[int(i) for i in p.findall(r[0])] #convert histogram from string to array of int
                 hist.append(i)
-                labels.append(r[3])
+                labels.append(r[1])
                 c=c+1
             myCsv.close()
 
@@ -43,7 +43,7 @@ class KNNClassifier(object):
         tests=[]
         # loo=LeaveOneOut()
         # #kfold=KFold(n_splits=50)
-        kfold=KFold(n_splits=50)
+        kfold=KFold(n_splits=7)
         true=0
         false=0
         train_inc=1
