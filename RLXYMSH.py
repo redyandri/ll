@@ -7,6 +7,7 @@ from Jansen_Shannon import JSD
 
 class RLXYMSH:
     def __init__(self):
+        self.files=[]
         return
 
     def get_rlbwxh(self, img):
@@ -66,6 +67,85 @@ class RLXYMSH:
         lengths_w = [lengths[k] for k, v in enumerate(runs) if v == 255]  # lengths of only white pixels
         lengths_b = [lengths[k] for k, v in enumerate(runs) if v == 0]  # lengths of only black pixels
         return self.get_histogram(lengths_b), self.get_histogram(lengths_w), self.get_histogram(lengths)  # rlbyh,rlwyh,rlbwyh
+
+    def get_diagonals(self,grid, bltr=True): #False:main diag, True: side diagnals
+        dim=len(grid)
+        # print "grid shape:%s"%str((np.array(grid)).shape)
+        assert dim == len(grid[0])
+        return_grid = [[] for total in xrange(2 * len(grid) - 1)]
+        for row in xrange(len(grid)):
+            for col in xrange(len(grid[row])):
+                if bltr:
+                    return_grid[row + col].append([col,row])
+                else:
+                    return_grid[col - row + (dim - 1)].append([col,row])
+        grid = []
+        for j in return_grid:
+            for k in j:
+                grid.append(k)
+        return grid
+
+    def get_rlbwmh(self, img): #get diagonal runs length
+        image=cv2.imread(img)
+        runs=[]
+        lengths=[]
+        prev=-1
+        count=0
+        val=0
+        height = image.shape[0]
+        width = image.shape[1]
+        grid=np.zeros((height,width),dtype=int)
+        diag_idx=self.get_diagonals(grid, False) #bltr True: side diag, False:main diag
+        for x in diag_idx:
+            val=image[x[0],x[1]][0]
+            if(prev==-1): #beginning of image
+                count=1
+            else:
+                if (val==prev):
+                    count=count+1
+                else:
+                    runs.append(prev)
+                    lengths.append(count)
+                    count=1
+            if ((x[0] == height - 1) & (x[1] == width - 1)):  # end of imsge
+                runs.append(val)
+                lengths.append(count)
+            prev=val
+        lengths_w=[lengths[k] for k,v in enumerate(runs) if v==255]   #lengths of only white pixels
+        lengths_b = [lengths[k] for k, v in enumerate(runs) if v == 0] #lengths of only black pixels
+        return self.get_histogram(lengths_b),self.get_histogram(lengths_w),self.get_histogram(lengths) #rlbxh,rlwxh,rlbwxh
+
+
+    def get_rlbwsh(self, img): #get diagonal runs length
+        image=cv2.imread(img)
+        runs=[]
+        lengths=[]
+        prev=-1
+        count=0
+        val=0
+        height = image.shape[0]
+        width = image.shape[1]
+        grid=np.zeros((height,width),dtype=int)
+        diag_idx=self.get_diagonals(grid,True)
+        for x in diag_idx:
+            val=image[x[0],x[1]][0]
+            if(prev==-1): #beginning of image
+                count=1
+            else:
+                if (val==prev):
+                    count=count+1
+                else:
+                    runs.append(prev)
+                    lengths.append(count)
+                    count=1
+            if ((x[0] == height - 1) & (x[1] == width - 1)):  # end of imsge
+                runs.append(val)
+                lengths.append(count)
+            prev=val
+        lengths_w=[lengths[k] for k,v in enumerate(runs) if v==255]   #lengths of only white pixels
+        lengths_b = [lengths[k] for k, v in enumerate(runs) if v == 0] #lengths of only black pixels
+        return self.get_histogram(lengths_b),self.get_histogram(lengths_w),self.get_histogram(lengths) #rlbxh,rlwxh,rlbwxh
+
 
     def getRunLengthX(self, img):
         image=cv2.imread(img)
