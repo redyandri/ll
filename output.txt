@@ -1,0 +1,2 @@
+Misstagged XMLs:
+/home/andri/Documents/s2/5/master_arbeit/dataset/historical/zones/vischer_aesthetikregister_1858_zkg/jpg/clip_vischer_aesthetikregister_1858_0030_heading_6.jpg-------------no element found: line 1, column 38
