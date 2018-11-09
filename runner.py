@@ -170,10 +170,10 @@ times_csv="/home/andri/Documents/s2/5/master_arbeit/dataset/uw3/unrelocated/augm
 ocrd_aug_all="/home/andri/Documents/s2/5/master_arbeit/dataset/ocrd/unrelocated/227/augmented.csv"
 ocrd_aug_train="/home/andri/Documents/s2/5/master_arbeit/dataset/ocrd/unrelocated/227/augmented/train.csv"
 ocrd_aug_test="/home/andri/Documents/s2/5/master_arbeit/dataset/ocrd/unrelocated/227/augmented/test.csv"
-ocrd_aug_rlbwxyh_train="/home/andri/Documents/s2/5/master_arbeit/dataset/ocrd/unrelocated/227/augmented/ocrd_aug_rlbwxh_train.csv"
-ocrd_aug_rlbwxyh_test="/home/andri/Documents/s2/5/master_arbeit/dataset/ocrd/unrelocated/227/augmented/ocrd_aug_rlbwxh_test.csv"
-ocrd_aug_rlbwxyh_classification_result_csv="/home/andri/Documents/s2/5/master_arbeit/dataset/ocrd/unrelocated/227/augmented/ocrd_aug_rlbwxh_classification_result.csv"
-ocrd_aug_rlbwxyh_classification_times_csv="/home/andri/Documents/s2/5/master_arbeit/dataset/ocrd/unrelocated/227/augmented/times.csv"
+ocrd_aug_rlbwxyh_train="ocrd_aug_rlbwxh_train.csv"
+ocrd_aug_rlbwxyh_test="ocrd_aug_rlbwxh_test.csv"
+ocrd_aug_rlbwxyh_classification_result_csv="ocrd_aug_rlbwxh_classification_result.csv"
+ocrd_aug_rlbwxyh_classification_times_csv="ocrd_aug_rlbwxh_classification_times.csv"
 
 # g.convert_images_to_rlbwxyh_from_file_csv(img_folder_csv=ocrd_aug_test,#ocrd_aug_train,#uw3_aug_test,#uw3_aug_train,
 #                                 csv_path=ocrd_aug_rlbwxyh_test,#ocrd_aug_rlbwxyh_train,#uw3_aug_rlbwxyh_test,#uw3_aug_rlbwxyh_train,#uw3_aug_rlbwxh_result,
