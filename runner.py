@@ -132,8 +132,8 @@ tool=my_tool()
 #                            result_csv=ocrd_result_csv,#aug_res,
 #                            resume_test_idx=0) #make 0.2 for test, crossval
 # from victorinox import victorinox
-uw3_dct_csv="/home/andri/Documents/s2/5/master_arbeit/app/deep_dsse/uw3_dictionary.csv"
-ocrd_dct_csv="/home/andri/Documents/s2/5/master_arbeit/app/deep_dsse/ocrd_dictionary.csv"
+uw3_dct_csv="uw3_dictionary.csv"
+ocrd_dct_csv="ocrd_dictionary.csv"
 # uw3_aug_rlbwxh_all="/home/andri/Documents/s2/5/master_arbeit/dataset/uw3/unrelocated/uw3_aug_rlbwxh_result.csv"
 # uw3_aug_rlbwxyh_train="/home/andri/Documents/s2/5/master_arbeit/dataset/uw3/unrelocated/augmented/uw3_aug_rlbwxh_train.csv"
 # uw3_aug_rlbwxyh_test="/home/andri/Documents/s2/5/master_arbeit/dataset/uw3/unrelocated/augmented/uw3_aug_rlbwxh_test.csv"
